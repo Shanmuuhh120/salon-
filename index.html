@@ -1,0 +1,199 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Salon Organizer</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+            background-color: #ffe4e1; /* Pastel pink background */
+        }
+        header {
+            background-color: #f7cac9; /* Soft pink */
+            color: white;
+            padding: 30px 0;
+            text-align: center;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+        }
+        header h1 {
+            margin: 0;
+            font-size: 2.5em;
+            letter-spacing: 2px;
+        }
+        nav {
+            background-color: #f9c2c3; /* Lighter pastel pink */
+            display: flex;
+            justify-content: center;
+            padding: 15px 0;
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
+        }
+        nav a {
+            color: white;
+            text-decoration: none;
+            margin: 0 18px;
+            font-weight: bold;
+            font-size: 1.1em;
+            transition: color 0.3s;
+        }
+        nav a:hover {
+            color: #f7cac9; /* Soft pink hover effect */
+        }
+        section {
+            padding: 30px 15px;
+        }
+        .entity {
+            background-color: #fff;
+            border-radius: 10px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+            margin-bottom: 25px;
+            padding: 20px;
+            transition: transform 0.3s ease-in-out;
+            display: none; /* Initially hide all entities */
+        }
+        .entity.active {
+            display: block; /* Show active entity */
+        }
+        .entity h2 {
+            margin-top: 0;
+            color: #f7cac9; /* Soft pink for headings */
+            font-size: 1.8em;
+            text-align: center;
+        }
+        .entity p {
+            font-size: 1.1em;
+            line-height: 1.6;
+            text-align: justify;
+            color: #555;
+        }
+        footer {
+            background-color: #f7cac9; /* Soft pink */
+            color: white;
+            text-align: center;
+            padding: 15px 0;
+            position: fixed;
+            bottom: 0;
+            width: 100%;
+            box-shadow: 0 -2px 4px rgba(0, 0, 0, 0.1);
+        }
+        /* Special Styling for the Links */
+        nav a.active {
+            border-bottom: 3px solid #fff;
+            padding-bottom: 12px;
+        }
+        .entity .highlight {
+            color: #f9c2c3; /* Highlight in lighter pastel pink */
+            font-weight: bold;
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <h1>Salon Organizer App</h1>
+    </header>
+    <nav>
+        <a href="javascript:void(0)" onclick="showEntity('user')" class="active">User</a>
+        <a href="javascript:void(0)" onclick="showEntity('appointment')">Appointment</a>
+        <a href="javascript:void(0)" onclick="showEntity('service')">Service</a>
+        <a href="javascript:void(0)" onclick="showEntity('staff')">Staff</a>
+        <a href="javascript:void(0)" onclick="showEntity('customer')">Customer</a>
+        <a href="javascript:void(0)" onclick="showEntity('payment')">Payment</a>
+        <a href="javascript:void(0)" onclick="showEntity('product')">Product</a>
+        <a href="javascript:void(0)" onclick="showEntity('inventory')">Inventory</a>
+        <a href="javascript:void(0)" onclick="showEntity('review')">Review</a>
+        <a href="javascript:void(0)" onclick="showEntity('schedule')">Schedule</a>
+        <a href="javascript:void(0)" onclick="showEntity('promotion')">Promotion</a>
+        <a href="javascript:void(0)" onclick="showEntity('location')">Location</a>
+    </nav>
+    <section>
+        <div id="user" class="entity active">
+            <h2>User</h2>
+            <p><span class="highlight">Attributes:</span> User ID, Name, Contact Information, Address, Role, Profile Picture</p>
+            <p><span class="highlight">Relationships:</span> Customers can book appointments. Staff can manage schedules.</p>
+        </div>
+        <div id="appointment" class="entity">
+            <h2>Appointment</h2>
+            <p><span class="highlight">Attributes:</span> Appointment ID, Customer ID, Staff ID, Service ID, Appointment Date and Time, Status, Notes</p>
+            <p><span class="highlight">Relationships:</span> Linked to Users (Customers and Staff). Linked to specific Services.</p>
+        </div>
+        <div id="service" class="entity">
+            <h2>Service</h2>
+            <p><span class="highlight">Attributes:</span> Service ID, Name, Duration, Price, Description, Category</p>
+            <p><span class="highlight">Relationships:</span> Can be booked in an Appointment.</p>
+        </div>
+        <div id="staff" class="entity">
+            <h2>Staff</h2>
+            <p><span class="highlight">Attributes:</span> Staff ID, Name, Contact Information, Role/Position, Availability, Specialization</p>
+            <p><span class="highlight">Relationships:</span> Assigned to Appointments.</p>
+        </div>
+        <div id="customer" class="entity">
+            <h2>Customer</h2>
+            <p><span class="highlight">Attributes:</span> Customer ID, Name, Contact Information, Preferences, Booking History, Membership or Loyalty Status</p>
+            <p><span class="highlight">Relationships:</span> Can book multiple Appointments.</p>
+        </div>
+        <div id="payment" class="entity">
+            <h2>Payment</h2>
+            <p><span class="highlight">Attributes:</span> Payment ID, Appointment ID, Amount Paid, Payment Method, Date and Time, Status</p>
+            <p><span class="highlight">Relationships:</span> Linked to Appointments.</p>
+        </div>
+        <div id="product" class="entity">
+            <h2>Product</h2>
+            <p><span class="highlight">Attributes:</span> Product ID, Name, Price, Stock Quantity, Description</p>
+            <p><span class="highlight">Relationships:</span> Can be added to a sale or linked to Services.</p>
+        </div>
+        <div id="inventory" class="entity">
+            <h2>Inventory</h2>
+            <p><span class="highlight">Attributes:</span> Inventory ID, Product ID, Quantity, Reorder Threshold</p>
+            <p><span class="highlight">Relationships:</span> Tracks Products used or sold in the salon.</p>
+        </div>
+        <div id="review" class="entity">
+            <h2>Review</h2>
+            <p><span class="highlight">Attributes:</span> Review ID, Customer ID, Staff ID or Service ID, Rating, Comments, Date</p>
+            <p><span class="highlight">Relationships:</span> Linked to Customers, Staff, or Services.</p>
+        </div>
+        <div id="schedule" class="entity">
+            <h2>Schedule</h2>
+            <p><span class="highlight">Attributes:</span> Schedule ID, Staff ID, Date and Time Slots, Availability Status</p>
+            <p><span class="highlight">Relationships:</span> Linked to Staff and Appointments.</p>
+        </div>
+        <div id="promotion" class="entity">
+            <h2>Promotion/Offer</h2>
+            <p><span class="highlight">Attributes:</span> Promotion ID, Name, Description, Discount Amount/Percentage, Validity Period, Eligible Services or Products</p>
+            <p><span class="highlight">Relationships:</span> Linked to Services, Products, or Customers.</p>
+        </div>
+        <div id="location" class="entity">
+            <h2>Salon Location</h2>
+            <p><span class="highlight">Attributes:</span> Location ID, Address, Contact Information, Working Hours</p>
+            <p><span class="highlight">Relationships:</span> Linked to Appointments and Staff.</p>
+        </div>
+    </section>
+    <footer>
+        &copy; 2025 Salon Organizer App. All rights reserved.
+    </footer>
+
+    <script>
+        // Function to toggle the active class
+        function showEntity(entity) {
+            // Hide all entities
+            const entities = document.querySelectorAll('.entity');
+            entities.forEach(function(item) {
+                item.classList.remove('active');
+            });
+
+            // Show the clicked entity
+            const activeEntity = document.getElementById(entity);
+            activeEntity.classList.add('active');
+
+            // Set active class to the clicked link
+            const navLinks = document.querySelectorAll('nav a');
+            navLinks.forEach(function(link) {
+                link.classList.remove('active');
+            });
+            const activeLink = document.querySelector(`nav a[href="#${entity}"]`);
+            activeLink.classList.add('active');
+        }
+    </script>
+</body>
+</html>
